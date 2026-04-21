@@ -62,7 +62,7 @@ public class MainView {
         BorderPane root = new BorderPane();
         root.setCenter(content);
 
-        return new Scene(root, 800, 450);
+        return new Scene(root, 900, 450);
     }
 
     private VBox createCatalogPanel() {
@@ -71,7 +71,7 @@ public class MainView {
 
         VBox panel = new VBox(10);
         panel.getChildren().addAll(title, catalogBox);
-        panel.setPrefWidth(380);
+        panel.setPrefWidth(430);
         panel.setStyle("-fx-border-color: lightgray; -fx-padding: 10;");
         return panel;
     }
@@ -85,7 +85,7 @@ public class MainView {
 
         VBox panel = new VBox(10);
         panel.getChildren().addAll(title, cartBox, totalLabel, confirmButton);
-        panel.setPrefWidth(380);
+        panel.setPrefWidth(430);
         panel.setStyle("-fx-border-color: lightgray; -fx-padding: 10;");
         return panel;
     }
@@ -102,17 +102,24 @@ public class MainView {
 
             Label nameLabel = new Label(product.getName());
             Label priceLabel = new Label("$ " + product.getPrice());
+            Label stockLabel = new Label("Disponible: " + product.getAvailableQuantity());
             Button addButton = new Button("Agregar");
 
             Region spacer = new Region();
             HBox.setHgrow(spacer, Priority.ALWAYS);
 
             addButton.setOnAction(event -> {
-                shoppingCartApp.addProductToCart(product.getId());
+                String message = shoppingCartApp.addProductToCart(product.getId());
+
+                if (!message.equals("")) {
+                    showError(message);
+                }
+
+                refreshCatalog();
                 refreshCart();
             });
 
-            row.getChildren().addAll(nameLabel, priceLabel, spacer, addButton);
+            row.getChildren().addAll(nameLabel, priceLabel, stockLabel, spacer, addButton);
             row.setStyle("-fx-padding: 5; -fx-border-color: #DDDDDD;");
 
             catalogBox.getChildren().add(row);
@@ -145,6 +152,14 @@ public class MainView {
     private void showMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Mensaje");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

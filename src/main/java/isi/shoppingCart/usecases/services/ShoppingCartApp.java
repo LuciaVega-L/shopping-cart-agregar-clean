@@ -34,7 +34,7 @@ public class ShoppingCartApp {
         return cart.getTotal();
     }
 
-    public void addProductToCart(int productId) {
-        agregarProductoAlCarritoUseCase.execute(productId);
+    public String addProductToCart(int productId) {
+        return agregarProductoAlCarritoUseCase.execute(productId);
     }
 }

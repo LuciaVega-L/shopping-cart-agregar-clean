@@ -15,17 +15,16 @@ public class InMemoryCartRepository implements CartRepository {
         Product product2 = productRepository.findById(2);
         Product product3 = productRepository.findById(3);
 
-        if (product1 != null) {
-            cart.addProduct(product1);
-        }
+        addInitialProduct(product1);
+        addInitialProduct(product2);
+        addInitialProduct(product2);
+        addInitialProduct(product3);
+    }
 
-        if (product2 != null) {
-            cart.addProduct(product2);
-            cart.addProduct(product2);
-        }
-
-        if (product3 != null) {
-            cart.addProduct(product3);
+    private void addInitialProduct(Product product) {
+        if (product != null && product.hasAvailableQuantity()) {
+            cart.addProduct(product);
+            product.decreaseAvailableQuantity();
         }
     }
 
