@@ -73,15 +73,13 @@ public class MainView {
         title.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
 
         Button confirmButton = new Button("Confirmar compra");
-        confirmButton.setOnAction(event -> {OperationResult result = shoppingCartApp.confirmarCompraUseCase();
-            if (result.isSuccess()) {
+        confirmButton.setOnAction(event -> {OperationResult result = shoppingCartApp.confirmPurchaseUseCase();
+            if (!result.isSuccess()) {
                 showMessage(result.getMessage());
             }
-
-            refreshCatalog();
             refreshCart();
+            refreshCatalog();
            });
-
 
         VBox panel = new VBox(10);
         panel.getChildren().addAll(title, cartBox, totalLabel, confirmButton);

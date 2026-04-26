@@ -8,11 +8,11 @@ import isi.shoppingCart.usecases.ports.CartRepository;
 import isi.shoppingCart.usecases.ports.ProductRepository;
 import java.util.List;
 
-public class ConfirmarCompraUseCase {
+public class ConfirmPurchaseUseCase {
     private ProductRepository productRepository;
     private CartRepository cartRepository;
 
-    public ConfirmarCompraUseCase(ProductRepository productRepository, CartRepository cartRepository){
+    public ConfirmPurchaseUseCase(ProductRepository productRepository, CartRepository cartRepository){
         this.productRepository=productRepository;
         this.cartRepository=cartRepository;
     }
@@ -28,11 +28,10 @@ public class ConfirmarCompraUseCase {
             Product productosTienda = productRepository.findById(item.getProduct().getId());
 
             if (productosTienda != null) {
-                for (int z = 0; z < item.getQuantity(); z++) {
-                    productosTienda.decreaseAvailableQuantity(item.getQuantity());
-                }
+                productosTienda.decreaseAvailableQuantity(item.getQuantity());
             }
         }
+        cartRepository.save(new Cart());
         return OperationResult.ok("Felicidades, tu compra ha sido realizada! Disfruta!");
     }
 }

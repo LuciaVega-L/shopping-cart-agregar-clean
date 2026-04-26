@@ -14,23 +14,23 @@ public class ShoppingCartApp {
     private ProductRepository productRepository;
     private CartRepository cartRepository;
     private AgregarProductoAlCarritoUseCase agregarProductoAlCarritoUseCase;
-    private ConfirmarCompraUseCase confirmarCompraUseCase;
+    private ConfirmPurchaseUseCase confirmPurchaseUseCase;
 
     public ShoppingCartApp() {
         productRepository = new InMemoryProductRepository();
         cartRepository = new InMemoryCartRepository();
         agregarProductoAlCarritoUseCase = new AgregarProductoAlCarritoUseCase(productRepository, cartRepository);
-        confirmarCompraUseCase=new ConfirmarCompraUseCase(productRepository,cartRepository);
+        confirmPurchaseUseCase=new ConfirmPurchaseUseCase(productRepository,cartRepository);
         cargarDatosIniciales();
     }
 
     public ShoppingCartApp(ProductRepository productRepository,
                            CartRepository cartRepository,
-                           AgregarProductoAlCarritoUseCase agregarProductoAlCarritoUseCase, ConfirmarCompraUseCase confirmarCompraUseCase) {
+                           AgregarProductoAlCarritoUseCase agregarProductoAlCarritoUseCase, ConfirmPurchaseUseCase confirmPurchaseUseCase) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.agregarProductoAlCarritoUseCase = agregarProductoAlCarritoUseCase;
-        this.confirmarCompraUseCase= confirmarCompraUseCase;
+        this.confirmPurchaseUseCase=  confirmPurchaseUseCase;
     }
 
     private void cargarDatosIniciales() {
@@ -87,7 +87,7 @@ public class ShoppingCartApp {
     public OperationResult addProductToCart(int productId) {
         return agregarProductoAlCarritoUseCase.execute(productId);
     }
-    public OperationResult confirmarCompraUseCase(){
-        return confirmarCompraUseCase.ValidarCarrito();
+    public OperationResult confirmPurchaseUseCase(){
+        return confirmPurchaseUseCase.ValidarCarrito();
     }
 }
