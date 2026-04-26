@@ -30,7 +30,7 @@ public class Cart {
         items.add(new CartItem(product, 1));
     }
 
-    public int getQuantityOfProduct(int productId) {
+    public int getQuantityByProductId(int productId) {
         int i;
 
         for (i = 0; i < items.size(); i++) {

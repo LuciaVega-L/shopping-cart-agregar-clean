@@ -11,13 +11,6 @@ public class InMemoryProductRepository implements ProductRepository {
 
     public InMemoryProductRepository() {
         products = new ArrayList<Product>();
-
-        products.add(new Product(1, "Laptop", 2500.0, 3));
-        products.add(new Product(2, "Mouse", 80.0, 3));
-        products.add(new Product(3, "Teclado", 150.0, 4));
-        products.add(new Product(4, "Monitor", 900.0, 1));
-        products.add(new Product(5, "Audifonos", 200.0, 2));
-        products.add(new Product(6, "Webcam", 180.0, 2));
     }
 
     public List<Product> findAll() {
@@ -36,5 +29,9 @@ public class InMemoryProductRepository implements ProductRepository {
         }
 
         return null;
+    }
+
+    public void save(Product product) {
+        products.add(product);
     }
 }
