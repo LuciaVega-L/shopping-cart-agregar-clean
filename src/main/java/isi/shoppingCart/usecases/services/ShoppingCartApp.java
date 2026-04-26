@@ -20,7 +20,7 @@ public class ShoppingCartApp {
         productRepository = new InMemoryProductRepository();
         cartRepository = new InMemoryCartRepository();
         agregarProductoAlCarritoUseCase = new AgregarProductoAlCarritoUseCase(productRepository, cartRepository);
-
+        confirmarCompraUseCase=new ConfirmarCompraUseCase(productRepository,cartRepository);
         cargarDatosIniciales();
     }
 
@@ -87,7 +87,7 @@ public class ShoppingCartApp {
     public OperationResult addProductToCart(int productId) {
         return agregarProductoAlCarritoUseCase.execute(productId);
     }
-    public String confirmarCompraUseCase(){
+    public OperationResult confirmarCompraUseCase(){
         return confirmarCompraUseCase.ValidarCarrito();
     }
 }
