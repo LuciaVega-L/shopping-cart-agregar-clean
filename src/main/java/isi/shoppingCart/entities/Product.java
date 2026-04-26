@@ -29,13 +29,29 @@ public class Product {
         return availableQuantity;
     }
 
-    public boolean hasAvailableQuantity() {
-        return availableQuantity > 0;
+    public void changePrice(double newPrice) {
+        if (newPrice < 0) {
+            return;
+        }
+        this.price = newPrice;
     }
 
-    public void decreaseAvailableQuantity() {
-        if (availableQuantity > 0) {
-            availableQuantity = availableQuantity - 1;
+    public void increaseAvailableQuantity(int quantity) {
+        if (quantity > 0) {
+            this.availableQuantity += quantity;
         }
+    }
+
+    public boolean decreaseAvailableQuantity(int quantity) {
+        if (quantity <= 0) {
+            return false;
+        }
+
+        if (quantity > availableQuantity) {
+            return false;
+        }
+
+        this.availableQuantity -= quantity;
+        return true;
     }
 }
